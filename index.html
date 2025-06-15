@@ -1,130 +1,1233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Proposed Automated Process</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 40px;
-    }
-
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-
-    .flowchart {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .shape {
-      padding: 15px 25px;
-      text-align: center;
-      margin: 10px 0;
-      border-radius: 8px;
-      width: 250px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.2);
-    }
-
-    .terminator {
-      background-color: #cce5ff;
-      border: 2px solid #339af0;
-      border-radius: 25px;
-    }
-
-    .process {
-      background-color: #d4edda;
-      border: 2px solid #28a745;
-    }
-
-    .decision {
-      background-color: #fff3cd;
-      border: 2px solid #ffc107;
-      transform: rotate(45deg);
-      width: 140px;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 20px 0;
-    }
-
-    .decision span {
-      transform: rotate(-45deg);
-      width: 100%;
-    }
-
-    .arrow {
-      font-size: 24px;
-      color: #555;
-    }
-
-    .branch-row {
-      display: flex;
-      justify-content: center;
-      gap: 80px;
-      margin-top: -10px;
-    }
-
-    .yes, .no {
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: -10px;
-      color: #555;
-    }
-
-    .arrow-down {
-      margin-bottom: -10px;
-    }
-
-    .shape-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Customer Service Automation - Enhanced Gantt Chart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #000000, #1d1d1f);
+            color: #f5f5f7;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px;
+            background: rgba(50, 50, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            color: #a2a2a8;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .apple-logo {
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+        
+        .project-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .info-card {
+            background: rgba(30, 30, 32, 0.9);
+            padding: 18px 25px;
+            border-radius: 14px;
+            text-align: center;
+            min-width: 220px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .info-card h3 {
+            color: #bfbfbf;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .info-card p {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ff375f;
+        }
+        
+        .content {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .gantt-container {
+            flex: 3;
+            min-width: 300px;
+            background: rgba(30, 30, 32, 0.9);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .panel {
+            background: rgba(30, 30, 32, 0.9);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .panel h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff375f;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .gantt-header {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gantt-header .task-column {
+            width: 350px;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .timeline {
+            display: flex;
+            min-width: 1800px;
+        }
+        
+        .month {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            color: #a2a2a8;
+            padding: 8px 5px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 100px;
+            font-size: 0.95rem;
+            background: rgba(40, 40, 42, 0.7);
+        }
+        
+        .gantt-body {
+            min-width: 1800px;
+        }
+        
+        .phase {
+            background: rgba(255, 55, 95, 0.15);
+            padding: 14px 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            border-left: 4px solid #ff375f;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .phase:hover {
+            background: rgba(255, 55, 95, 0.25);
+        }
+        
+        .phase i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .task {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .task:hover {
+            background: rgba(50, 50, 52, 0.7);
+        }
+        
+        .task-name {
+            width: 350px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            color: #f5f5f7;
+            position: relative;
+        }
+        
+        .critical-icon {
+            color: #ffd700;
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .task-bars {
+            flex: 1;
+            height: 45px;
+            position: relative;
+        }
+        
+        .bar {
+            height: 35px;
+            border-radius: 8px;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .bar.critical {
+            box-shadow: 0 0 0 3px #ffd700;
+            z-index: 2;
+        }
+        
+        .bar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+            z-index: 3;
+        }
+        
+        .milestone {
+            position: absolute;
+            top: -8px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 20px solid #ffd700;
+            z-index: 3;
+        }
+        
+        .milestone::after {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid #ffd700;
+        }
+        
+        .dependency-circle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #64d2ff;
+            border-radius: 50%;
+            z-index: 3;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .dependency-line {
+            position: absolute;
+            height: 2px;
+            background: #64d2ff;
+            z-index: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(40, 40, 42, 0.7);
+            border-radius: 14px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+        
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        
+        .personnel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .person {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(40, 40, 42, 0.7);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .person:hover {
+            transform: translateX(8px);
+            background: rgba(255, 55, 95, 0.15);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .person-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff375f, #ff2d55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .person-details {
+            flex: 1;
+        }
+        
+        .person-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        
+        .person-role {
+            font-size: 0.95rem;
+            color: #a2a2a8;
+        }
+        
+        .milestones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+        }
+        
+        .milestone-card {
+            background: rgba(40, 40, 42, 0.7);
+            padding: 18px;
+            border-radius: 14px;
+            border-left: 4px solid #ffd700;
+            transition: all 0.3s ease;
+        }
+        
+        .milestone-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .milestone-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .milestone-date {
+            font-size: 1rem;
+            color: #ff375f;
+            font-weight: 500;
+        }
+        
+        .critical-path {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 14px;
+            border-left: 4px solid #ffd700;
+        }
+        
+        .path-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .path-step {
+            background: linear-gradient(135deg, #ffd700, #ffb700);
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            background: rgba(40, 40, 42, 0.7);
+            padding: 20px;
+            border-radius: 14px;
+            border-left: 4px solid #64d2ff;
+        }
+        
+        .metric-name {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .metric-value {
+            font-size: 1.3rem;
+            color: #64d2ff;
+            font-weight: 600;
+        }
+        
+        .problem-analysis {
+            background: rgba(255, 55, 95, 0.15);
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .problem-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .problem-item i {
+            color: #ff375f;
+            font-size: 1.2rem;
+        }
+        
+        .summary-tab {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: #ff375f;
+            color: white;
+            padding: 12px 8px;
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        
+        .summary-tab:hover {
+            background: #ff2d55;
+            padding-right: 12px;
+        }
+        
+        .summary-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 32, 0.95);
+            border-radius: 18px;
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            z-index: 2000;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .summary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff375f;
+        }
+        
+        .summary-header h2 {
+            color: #ffffff;
+            font-size: 2rem;
+        }
+        
+        .close-summary {
+            background: none;
+            border: none;
+            color: #a2a2a8;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-summary:hover {
+            color: #ff375f;
+        }
+        
+        .summary-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+        
+        .summary-section {
+            margin-bottom: 25px;
+        }
+        
+        .summary-section h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .summary-section p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .summary-list {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .critical-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 215, 0, 0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .gantt-container {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .project-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .info-card {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gantt-header .task-column {
+                width: 250px;
+            }
+            
+            .task-name {
+                width: 250px;
+            }
+            
+            .legend-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-
-<h2>✅ Proposed Automated Process</h2>
-
-<div class="flowchart">
-  <div class="shape terminator">Start</div>
-  <div class="arrow">↓</div>
-  <div class="shape process">Customer Submits Issue</div>
-  <div class="arrow">↓</div>
-  <div class="shape process">AI Initial Assessment</div>
-  <div class="arrow">↓</div>
-  <div class="decision"><span>Routine Issue?</span></div>
-
-  <div class="branch-row">
-    <div class="shape-wrapper">
-      <div class="yes">Yes</div>
-      <div class="arrow-down">↓</div>
-      <div class="shape process">Auto-Resolution</div>
-      <div class="arrow">↓</div>
-      <div class="shape process">Automated Follow-up</div>
-      <div class="arrow">↓</div>
-      <div class="shape terminator">End</div>
+    <!-- Summary Tab -->
+    <div class="summary-tab" id="summaryTab">
+        <i class="fas fa-file-alt"></i> Project Summary
     </div>
-
-    <div class="shape-wrapper">
-      <div class="no">No</div>
-      <div class="arrow-down">↓</div>
-      <div class="shape process">Smart Agent Assignment</div>
-      <div class="arrow">↓</div>
-      <div class="shape process">Agent Uses Tools</div>
-      <div class="arrow">↓</div>
-      <div class="shape process">Automated Follow-up</div>
-      <div class="arrow">↓</div>
-      <div class="shape terminator">End</div>
+    
+    <!-- Summary Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="summary-modal" id="summaryModal">
+        <div class="summary-header">
+            <h2>Project Summary</h2>
+            <button class="close-summary" id="closeSummary">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="summary-content">
+            <div class="summary-section">
+                <h3>Project Overview</h3>
+                <p>This project implements an Intelligent Customer Service Automation Platform for Apple, designed to transform customer support operations through AI-powered solutions. The implementation will span 18 months with a budget of $45 million, projected to yield $100-175 million in annual savings.</p>
+            </div>
+            
+            <div class="summary-section">
+                <h3>Key Objectives</h3>
+                <ul class="summary-list">
+                    <li>Reduce average handling time by 33% (from 12-15 mins to 8-10 mins)</li>
+                    <li>Increase first contact resolution to 80-88% (from current 75%)</li>
+                    <li>Improve customer satisfaction to 85-88% (from current 82%)</li>
+                    <li>Automate 60% of repetitive customer inquiries</li>
+                    <li>Implement 24/7 global support coverage</li>
+                </ul>
+            </div>
+            
+            <div class="summary-section">
+                <h3>Critical Path</h3>
+                <p>The critical path defines the sequence of tasks that determine the minimum project duration:</p>
+                <ul class="summary-list">
+                    <li>AI Engine Development (Months 1-4)</li>
+                    <li>NLP Chatbot Framework (Months 2-5)</li>
+                    <li>Automated Routing System (Months 4-6)</li>
+                    <li>North America Pilot (Months 7-8)</li>
+                    <li>System Refinement (Month 12)</li>
+                    <li>Tier 1 Market Deployment (Months 13-14)</li>
+                    <li>Project Finalization (Month 18)</li>
+                </ul>
+            </div>
+            
+            <div class="summary-section">
+                <h3>Key Benefits</h3>
+                <ul class="summary-list">
+                    <li><strong>$100-175M</strong> annual cost savings</li>
+                    <li><strong>40% reduction</strong> in average response time</li>
+                    <li><strong>50% increase</strong> in support agent productivity</li>
+                    <li><strong>60% reduction</strong> in routine inquiry handling costs</li>
+                    <li>Enhanced customer experience across all touchpoints</li>
+                    <li>Improved brand reputation and customer loyalty</li>
+                </ul>
+            </div>
+            
+            <div class="summary-section">
+                <h3>Risk Management</h3>
+                <p>The project includes comprehensive risk mitigation strategies:</p>
+                <ul class="summary-list">
+                    <li><strong>Technology Risks:</strong> Comprehensive testing and phased deployment approach</li>
+                    <li><strong>Operational Risks:</strong> Parallel system operation during transition</li>
+                    <li><strong>Financial Risks:</strong> Detailed budgeting and regular financial monitoring</li>
+                    <li>Monthly risk assessment reviews with stakeholders</li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
+    
+    <div class="container">
+        <header>
+            <div class="apple-logo">
+                <i class="fab fa-apple"></i>
+            </div>
+            <h1>Customer Service Automation</h1>
+            <p class="subtitle">Intelligent Automation Platform Implementation Roadmap</p>
+            
+            <div class="project-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Project Start</h3>
+                    <p>Jan 1, 2025</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-flag-checkered"></i> Project End</h3>
+                    <p>Jun 30, 2026</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-tachometer-alt"></i> Duration</h3>
+                    <p>18 Months</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-money-bill-wave"></i> Investment</h3>
+                    <p>$45 Million</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-chart-line"></i> Annual Savings</h3>
+                    <p>$100-$175 Million</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="gantt-container">
+                <h2><i class="fas fa-chart-bar"></i> Automation Implementation Gantt Chart</h2>
+                
+                <div class="gantt-header">
+                    <div class="task-column">Automation Components & Tasks</div>
+                    <div class="timeline">
+                        <div class="month">Jan 2025</div>
+                        <div class="month">Feb</div>
+                        <div class="month">Mar</div>
+                        <div class="month">Apr</div>
+                        <div class="month">May</div>
+                        <div class="month">Jun</div>
+                        <div class="month">Jul</div>
+                        <div class="month">Aug</div>
+                        <div class="month">Sep</div>
+                        <div class="month">Oct</div>
+                        <div class="month">Nov</div>
+                        <div class="month">Dec</div>
+                        <div class="month">Jan 2026</div>
+                        <div class="month">Feb</div>
+                        <div class="month">Mar</div>
+                        <div class="month">Apr</div>
+                        <div class="month">May</div>
+                        <div class="month">Jun</div>
+                    </div>
+                </div>
+                
+                <div class="gantt-body">
+                    <!-- Phase 1 -->
+                    <div class="phase">
+                        <i class="fas fa-chevron-down"></i> Phase 1: Platform Foundation & Core Development (Months 1-6)
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-brain"></i> AI Engine Development
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 0%; width: 22.2%; background-color: #ff375f;">Months 1-4</div>
+                            <div class="milestone" style="left: 22.2%;"></div>
+                            <div class="dependency-line" style="left: 22.2%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 27.75%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-comments"></i> NLP Chatbot Framework
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 5.55%; width: 16.65%; background-color: #ff375f;">Months 2-5</div>
+                            <div class="dependency-line" style="left: 27.75%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 33.3%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-project-diagram"></i> Knowledge Base Integration
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 11.1%; width: 11.1%; background-color: #ff375f;">Months 3-4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-robot"></i> Automated Routing System
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 16.65%; width: 16.65%; background-color: #ff375f;">Months 4-6</div>
+                            <div class="dependency-line" style="left: 33.3%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 38.85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-tools"></i> Self-Service Platform
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 22.2%; width: 11.1%; background-color: #ff375f;">Months 5-6</div>
+                            <div class="milestone" style="left: 33.3%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 2 -->
+                    <div class="phase">
+                        <i class="fas fa-chevron-down"></i> Phase 2: Pilot Implementation & Optimization (Months 7-12)
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-flag-usa"></i> North America Pilot
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 33.3%; width: 11.1%; background-color: #64d2ff;">Months 7-8</div>
+                            <div class="dependency-line" style="left: 38.85%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 44.4%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-chart-line"></i> Performance Optimization
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 38.85%; width: 5.55%; background-color: #64d2ff;">Month 9</div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-globe-europe"></i> European Expansion
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 44.4%; width: 11.1%; background-color: #64d2ff;">Months 9-10</div>
+                            <div class="dependency-line" style="left: 49.95%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 55.5%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-globe-asia"></i> APAC Deployment
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 49.95%; width: 11.1%; background-color: #64d2ff;">Months 10-11</div>
+                            <div class="milestone" style="left: 55.5%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-cogs"></i> System Refinement
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 55.5%; width: 5.55%; background-color: #64d2ff;">Month 12</div>
+                            <div class="milestone" style="left: 61.05%;"></div>
+                            <div class="dependency-line" style="left: 61.05%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 66.6%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 3 -->
+                    <div class="phase">
+                        <i class="fas fa-chevron-down"></i> Phase 3: Global Rollout & Enhancement (Months 13-18)
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-globe"></i> Tier 1 Market Deployment
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 61.05%; width: 11.1%; background-color: #a370fc;">Months 13-14</div>
+                            <div class="dependency-line" style="left: 66.6%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 72.15%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-layer-group"></i> Tier 2 Market Expansion
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 66.6%; width: 11.1%; background-color: #a370fc;">Months 14-15</div>
+                            <div class="milestone" style="left: 77.7%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-analytics"></i> Advanced Analytics
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 72.15%; width: 11.1%; background-color: #a370fc;">Months 15-16</div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-cogs"></i> Continuous Improvement
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar" style="left: 77.7%; width: 16.65%; background-color: #a370fc;">Months 16-18</div>
+                            <div class="dependency-line" style="left: 88.8%; width: 5.55%;"></div>
+                            <div class="dependency-circle" style="left: 94.35%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task">
+                        <div class="task-name">
+                            <i class="fas fa-clipboard-check"></i> Project Finalization
+                            <span class="critical-label"><i class="fas fa-exclamation-circle critical-icon"></i> Critical</span>
+                        </div>
+                        <div class="task-bars">
+                            <div class="bar critical" style="left: 88.8%; width: 5.55%; background-color: #a370fc;">Month 18</div>
+                            <div class="milestone" style="left: 94.35%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ff375f;"></div>
+                        <span>Platform Development</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #64d2ff;"></div>
+                        <span>Pilot Implementation</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #a370fc;"></div>
+                        <span>Global Deployment</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ffd700; border: 2px solid #ff375f;"></div>
+                        <span>Critical Path Tasks</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="milestone"></div>
+                        <span>Project Milestone</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="dependency-circle"></div>
+                        <span>Task Dependency</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="panel">
+                    <h2><i class="fas fa-users"></i> Core Team</h2>
+                    <div class="personnel-list">
+                        <div class="person">
+                            <div class="person-avatar">AI</div>
+                            <div class="person-details">
+                                <div class="person-name">AI Engineering Team</div>
+                                <div class="person-role">12 Engineers (Phases 1-3)</div>
+                            </div>
+                        </div>
+                        <div class="person">
+                            <div class="person-avatar">NLP</div>
+                            <div class="person-details">
+                                <div class="person-name">NLP Specialists</div>
+                                <div class="person-role">8 Specialists (Phase 1-2)</div>
+                            </div>
+                        </div>
+                        <div class="person">
+                            <div class="person-avatar">CX</div>
+                            <div class="person-details">
+                                <div class="person-name">Customer Experience</div>
+                                <div class="person-role">6 Designers (All Phases)</div>
+                            </div>
+                        </div>
+                        <div class="person">
+                            <div class="person-avatar">QA</div>
+                            <div class="person-details">
+                                <div class="person-name">Quality Assurance</div>
+                                <div class="person-role">10 Engineers (Phase 2-3)</div>
+                            </div>
+                        </div>
+                        <div class="person">
+                            <div class="person-avatar">OPS</div>
+                            <div class="person-details">
+                                <div class="person-name">Operations Team</div>
+                                <div class="person-role">15 Specialists (Phase 3)</div>
+                            </div>
+                        </div>
+                        <div class="person">
+                            <div class="person-avatar">PM</div>
+                            <div class="person-details">
+                                <div class="person-name">Program Management</div>
+                                <div class="person-role">5 Managers (All Phases)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2><i class="fas fa-flag"></i> Key Milestones</h2>
+                    <div class="milestones-grid">
+                        <div class="milestone-card">
+                            <div class="milestone-name">AI Engine Complete</div>
+                            <div class="milestone-date">April 30, 2025</div>
+                        </div>
+                        <div class="milestone-card">
+                            <div class="milestone-name">Routing System Live</div>
+                            <div class="milestone-date">June 30, 2025</div>
+                        </div>
+                        <div class="milestone-card">
+                            <div class="milestone-name">NA Pilot Success</div>
+                            <div class="milestone-date">August 31, 2025</div>
+                        </div>
+                        <div class="milestone-card">
+                            <div class="milestone-name">Global Optimization</div>
+                            <div class="milestone-date">December 31, 2025</div>
+                        </div>
+                        <div class="milestone-card">
+                            <div class="milestone-name">Tier 1 Deployment</div>
+                            <div class="milestone-date">February 28, 2026</div>
+                        </div>
+                        <div class="milestone-card">
+                            <div class="milestone-name">Project Completion</div>
+                            <div class="milestone-date">June 30, 2026</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel critical-path">
+                    <h2><i class="fas fa-bolt"></i> Critical Path</h2>
+                    <p>Sequence determining project duration:</p>
+                    <div class="path-steps">
+                        <div class="path-step">AI Engine Development</div>
+                        <div class="path-step">NLP Framework</div>
+                        <div class="path-step">Routing System</div>
+                        <div class="path-step">NA Pilot</div>
+                        <div class="path-step">System Refinement</div>
+                        <div class="path-step">Tier 1 Deployment</div>
+                        <div class="path-step">Project Finalization</div>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <h2><i class="fas fa-chart-line"></i> Performance Targets</h2>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-name">Handling Time</div>
+                            <div class="metric-value">33% Reduction</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-name">First Contact Resolution</div>
+                            <div class="metric-value">80-88%+</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-name">Customer Satisfaction</div>
+                            <div class="metric-value">85-88%+</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-name">Cost Reduction</div>
+                            <div class="metric-value">$100-175M/Year</div>
+                        </div>
+                    </div>
+                    
+                    <div class="problem-analysis">
+                        <h3 style="margin-bottom: 15px; color: #ff375f;">Problem Analysis</h3>
+                        <div class="problem-item">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>60% of tickets involve repetitive questions</span>
+                        </div>
+                        <div class="problem-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Inconsistent response times across channels</span>
+                        </div>
+                        <div class="problem-item">
+                            <i class="fas fa-users"></i>
+                            <span>Resource-intensive manual ticket routing</span>
+                        </div>
+                        <div class="problem-item">
+                            <i class="fas fa-globe"></i>
+                            <span>Limited 24/7 global support availability</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Summary modal functionality
+        const summaryTab = document.getElementById('summaryTab');
+        const summaryModal = document.getElementById('summaryModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeSummary = document.getElementById('closeSummary');
+        
+        summaryTab.addEventListener('click', () => {
+            summaryModal.style.display = 'block';
+            modalOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeSummary.addEventListener('click', () => {
+            summaryModal.style.display = 'none';
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        modalOverlay.addEventListener('click', () => {
+            summaryModal.style.display = 'none';
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Add interactivity to task bars
+        document.querySelectorAll('.bar').forEach(bar => {
+            bar.addEventListener('click', function() {
+                const taskName = this.parentElement.previousElementSibling.querySelector('i').nextSibling.textContent.trim();
+                alert(`Selected task: ${taskName}\nDuration: ${this.textContent}`);
+            });
+            
+            // Add hover effect
+            bar.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+                this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.4)';
+            });
+            
+            bar.addEventListener('mouseleave', function() {
+                this.style.transform = 'none';
+                this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+            });
+        });
+        
+        // Add hover effect to milestone cards
+        document.querySelectorAll('.milestone-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-7px)';
+                this.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.35)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'none';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // Simulate loading animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const ganttBars = document.querySelectorAll('.bar');
+            ganttBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.opacity = '1';
+                    bar.style.transform = 'scale(1)';
+                }, 200 + index * 100);
+            });
+            
+            // Add dependencies between tasks
+            const dependencies = [
+                { from: 0, to: 1 },
+                { from: 1, to: 2 },
+                { from: 2, to: 3 },
+                { from: 3, to: 4 },
+                { from: 4, to: 5 },
+                { from: 5, to: 6 },
+                { from: 6, to: 7 },
+                { from: 7, to: 8 },
+                { from: 8, to: 9 },
+                { from: 9, to: 10 },
+                { from: 10, to: 11 },
+                { from: 11, to: 12 },
+                { from: 12, to: 13 }
+            ];
+            
+            dependencies.forEach(dep => {
+                const fromBar = document.querySelectorAll('.bar')[dep.from];
+                const toBar = document.querySelectorAll('.bar')[dep.to];
+                
+                if (fromBar && toBar) {
+                    const fromRect = fromBar.getBoundingClientRect();
+                    const toRect = toBar.getBoundingClientRect();
+                    const containerRect = fromBar.parentElement.getBoundingClientRect();
+                    
+                    const fromLeft = fromRect.left - containerRect.left + fromRect.width;
+                    const toLeft = toRect.left - containerRect.left;
+                    const topPosition = fromRect.top - containerRect.top + fromRect.height/2;
+                    
+                    const dependencyLine = document.createElement('div');
+                    dependencyLine.className = 'dependency-line';
+                    dependencyLine.style.left = fromLeft + 'px';
+                    dependencyLine.style.width = (toLeft - fromLeft) + 'px';
+                    dependencyLine.style.top = topPosition + 'px';
+                    
+                    const dependencyCircle = document.createElement('div');
+                    dependencyCircle.className = 'dependency-circle';
+                    dependencyCircle.style.left = toLeft + 'px';
+                    dependencyCircle.style.top = topPosition + 'px';
+                    
+                    fromBar.parentElement.appendChild(dependencyLine);
+                    fromBar.parentElement.appendChild(dependencyCircle);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
