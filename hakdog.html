@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Proposed Automated Process</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .flowchart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .shape {
+      padding: 15px 25px;
+      text-align: center;
+      margin: 10px 0;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }
+
+    .terminator {
+      background-color: #cce5ff;
+      border: 2px solid #339af0;
+      border-radius: 25px;
+    }
+
+    .process {
+      background-color: #d4edda;
+      border: 2px solid #28a745;
+    }
+
+    .decision {
+      background-color: #fff3cd;
+      border: 2px solid #ffc107;
+      transform: rotate(45deg);
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .decision span {
+      transform: rotate(-45deg);
+      width: 100%;
+    }
+
+    .arrow {
+      font-size: 24px;
+      color: #555;
+    }
+
+    .branch-row {
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin-top: -10px;
+    }
+
+    .yes, .no {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: -10px;
+      color: #555;
+    }
+
+    .arrow-down {
+      margin-bottom: -10px;
+    }
+
+    .shape-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<h2>✅ Proposed Automated Process</h2>
+
+<div class="flowchart">
+  <div class="shape terminator">Start</div>
+  <div class="arrow">↓</div>
+  <div class="shape process">Customer Submits Issue</div>
+  <div class="arrow">↓</div>
+  <div class="shape process">AI Initial Assessment</div>
+  <div class="arrow">↓</div>
+  <div class="decision"><span>Routine Issue?</span></div>
+
+  <div class="branch-row">
+    <div class="shape-wrapper">
+      <div class="yes">Yes</div>
+      <div class="arrow-down">↓</div>
+      <div class="shape process">Auto-Resolution</div>
+      <div class="arrow">↓</div>
+      <div class="shape process">Automated Follow-up</div>
+      <div class="arrow">↓</div>
+      <div class="shape terminator">End</div>
+    </div>
+
+    <div class="shape-wrapper">
+      <div class="no">No</div>
+      <div class="arrow-down">↓</div>
+      <div class="shape process">Smart Agent Assignment</div>
+      <div class="arrow">↓</div>
+      <div class="shape process">Agent Uses Tools</div>
+      <div class="arrow">↓</div>
+      <div class="shape process">Automated Follow-up</div>
+      <div class="arrow">↓</div>
+      <div class="shape terminator">End</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
